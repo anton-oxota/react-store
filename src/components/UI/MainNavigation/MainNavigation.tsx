@@ -14,6 +14,11 @@ function MainNavigation() {
                         Home
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink className={setActiveLink} to="products">
+                        Products
+                    </NavLink>
+                </li>
             </ul>
         </nav>
     );
