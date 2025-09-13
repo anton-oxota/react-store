@@ -1,13 +1,18 @@
+import { NavLink, type NavLinkRenderProps } from "react-router";
 import classes from "./MainNavigation.module.css";
+
+function setActiveLink({ isActive }: NavLinkRenderProps) {
+    return isActive ? classes.active : undefined;
+}
 
 function MainNavigation() {
     return (
         <nav className={classes.nav}>
             <ul>
                 <li>
-                    <a className={classes.active} href="">
+                    <NavLink className={setActiveLink} to="/">
                         Home
-                    </a>
+                    </NavLink>
                 </li>
             </ul>
         </nav>
