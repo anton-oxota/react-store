@@ -1,0 +1,29 @@
+.home h1 {
+    color: var(--color-1);
+    font-size: 50px;
+}
+
+.home h2 {
+    color: var(--color-1);
+    font-size: 40px;
+}
+
+.home h3 {
+    /* color: var(--color-1); */
+    font-size: 30px;
+}
+
+.home ul {
+    margin-top: 10px;
+}
+
+.home li {
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.developerInfo,
+.techStack,
+.features {
+    margin-top: 40px;
+}
