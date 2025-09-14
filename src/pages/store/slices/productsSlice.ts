@@ -1,13 +1,24 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+    createAsyncThunk,
+    createSlice,
+    type PayloadAction,
+} from "@reduxjs/toolkit";
 import { getAllProducts, type Product } from "../../../utils/http";
+import { getSearchFromUrl } from "../../../utils/url";
 
 type InitialState = {
+    filters: {
+        search: string;
+    };
     products: Product[] | null;
     isFetching: boolean;
     error: Error | null;
 };
 
 const initialState: InitialState = {
+    filters: {
+        search: getSearchFromUrl(),
+    },
     products: null,
     isFetching: false,
     error: null,
@@ -21,9 +32,14 @@ export const fetchProductsAction = createAsyncThunk(
 const productsSlice = createSlice({
     name: "products",
     initialState,
-    reducers: {},
+    reducers: {
+        setSearchFilter(state, aciton: PayloadAction<string>) {
+            state.filters.search = aciton.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
+            // Fetch Products
             .addCase(fetchProductsAction.pending, (state) => {
                 state.isFetching = true;
                 state.error = null;
@@ -40,4 +56,5 @@ const productsSlice = createSlice({
     },
 });
 
+export const { setSearchFilter } = productsSlice.actions;
 export default productsSlice.reducer;
