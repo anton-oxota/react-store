@@ -1,0 +1,31 @@
+.form {
+    margin-top: 20px;
+    width: 500px;
+    display: flex;
+    gap: 10px;
+}
+
+.form input {
+    width: 100%;
+    font-size: 20px;
+    padding: 15px 10px;
+    border: 2px solid var(--color-1);
+    border-radius: 30px;
+}
+
+.form button {
+    font-size: 20px;
+    padding: 15px 10px;
+    border-radius: 30px;
+
+    border: 2px solid var(--color-1);
+    background-color: var(--color-1);
+    color: var(--white);
+
+    transition: 0.3s all;
+}
+
+.form button:hover {
+    background-color: transparent;
+    color: var(--color-1);
+}

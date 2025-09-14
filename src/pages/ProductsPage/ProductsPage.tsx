@@ -1,47 +1,50 @@
 import classes from "./ProductsPage.module.css";
 
 import { useAppDispatch, useAppSelector } from "../store/store";
-import {
-    fetchProductsAction,
-    setSearchFilter,
-} from "../store/slices/productsSlice";
+import { fetchProductsAction } from "../store/slices/productsSlice";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 import { useEffect } from "react";
-import { useSearchParams } from "react-router";
-import { filterBySearch } from "../../utils/filter";
+import { filterByCategories, filterBySearch } from "../../utils/filter";
+import CategoriesList from "../../components/CategoriesList/CategoriesList";
+import SearchBox from "../../components/SearchBox/SearchBox";
 
 function ProductsPage() {
     const dispatch = useAppDispatch();
-    const [, setSearchParams] = useSearchParams();
 
-    const {
-        products,
-        isFetching,
-        filters: { search },
-    } = useAppSelector((state) => state.productsState);
+    const { products, isFetching } = useAppSelector(
+        (state) => state.productsState
+    );
+    const { search, categories } = useAppSelector(
+        (state) => state.filtersState
+    );
 
-    const filteredProducts = filterBySearch(products || [], search);
+    const filteredProducts = filterByCategories(
+        filterBySearch(products || [], search),
+        categories
+    );
 
     // Fetch data
     useEffect(() => {
         dispatch(fetchProductsAction());
     }, [dispatch]);
 
-    function handleSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        if (!event.target) return;
+    // Create Content
+    let content;
 
-        // Get data from form
-        const fd = new FormData(event.target as HTMLFormElement);
-        const data = Object.fromEntries(fd.entries()) as { search: string };
+    if (isFetching) {
+        content = <p>Loading...</p>;
+    }
 
-        // Set Filter
-        dispatch(setSearchFilter(data.search));
+    if (!isFetching && !filteredProducts.length) {
+        content = <p>Can not find products with current filters</p>;
+    }
 
-        // Set URL
-        setSearchParams({ search: data.search });
+    if (!isFetching && filteredProducts.length) {
+        content = filteredProducts.map((product) => (
+            <ProductCard key={product.id} {...product} />
+        ));
     }
 
     return (
@@ -49,24 +52,10 @@ function ProductsPage() {
             <div className="container">
                 <h1>Products Page</h1>
 
-                <form className={classes.form} onSubmit={handleSearchSubmit}>
-                    <input
-                        defaultValue="Cap"
-                        type="text"
-                        placeholder="Enter product title..."
-                        name="search"
-                    />
-                    <button>Search</button>
-                </form>
+                <SearchBox />
+                <CategoriesList />
 
-                <div className={classes.wrapper}>
-                    {isFetching && <p>Loading...</p>}
-                    {!isFetching &&
-                        products &&
-                        filteredProducts.map((product) => (
-                            <ProductCard key={product.id} {...product} />
-                        ))}
-                </div>
+                <div className={classes.wrapper}>{content}</div>
             </div>
         </section>
     );

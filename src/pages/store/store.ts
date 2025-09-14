@@ -1,11 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { configureStore } from "@reduxjs/toolkit";
 
 import productsReducer from "./slices/productsSlice";
-import { useDispatch, useSelector } from "react-redux";
+import categoriesReducer from "./slices/categoriesSlice";
+import filtersReducer from "./slices/filtersSlice";
 
 const store = configureStore({
     reducer: {
         productsState: productsReducer,
+        categoriesState: categoriesReducer,
+        filtersState: filtersReducer,
     },
 });
 

@@ -1,0 +1,24 @@
+.categories {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    list-style: none;
+}
+
+.categories li {
+    padding: 5px 10px;
+    color: var(--color-1);
+    border: 2px solid var(--color-1);
+    font-size: 20px;
+
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.categories li:hover,
+.categories li.active {
+    color: var(--white);
+    background-color: var(--color-1);
+}

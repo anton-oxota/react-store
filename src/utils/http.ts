@@ -1,6 +1,6 @@
 const URL_BASE = "https://api.escuelajs.co/api/v1";
 
-type ProductCategory = {
+export type ProductCategory = {
     id: number;
     name: string;
     image: string;
@@ -22,6 +22,17 @@ export async function getAllProducts(): Promise<Product[]> {
 
     if (!response.ok) {
         throw new Error("Failed to fetch products");
+    }
+
+    const data = await response.json();
+    return data;
+}
+
+export async function getAllCategories(): Promise<ProductCategory[]> {
+    const response = await fetch(`${URL_BASE}/categories`);
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch categories");
     }
 
     const data = await response.json();
