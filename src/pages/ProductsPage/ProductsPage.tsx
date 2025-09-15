@@ -1,29 +1,34 @@
 import classes from "./ProductsPage.module.css";
 
-import { useAppDispatch, useAppSelector } from "../store/store";
-import { fetchProductsAction } from "../store/slices/productsSlice";
+import { useAppDispatch } from "../store/store";
+import {
+    fetchProductsAction,
+    useProductsState,
+} from "../store/slices/productsSlice";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 import { useEffect } from "react";
-import { filterByCategories, filterBySearch } from "../../utils/filter";
+
+import { filterAndSortProducts } from "../../utils/filter";
+
 import CategoriesList from "../../components/CategoriesList/CategoriesList";
 import SearchBox from "../../components/SearchBox/SearchBox";
+import SortBy from "../../components/SortBy/SortBy";
+import { useFiltersState } from "../store/slices/filtersSlice";
 
 function ProductsPage() {
     const dispatch = useAppDispatch();
 
-    const { products, isFetching } = useAppSelector(
-        (state) => state.productsState
-    );
-    const { search, categories } = useAppSelector(
-        (state) => state.filtersState
-    );
+    const { products, isFetching } = useProductsState();
+    const { search, categories, sortBy } = useFiltersState();
 
-    const filteredProducts = filterByCategories(
-        filterBySearch(products || [], search),
-        categories
-    );
+    // Filter data
+    const filteredProducts = filterAndSortProducts(products || [], {
+        search,
+        categories,
+        sortBy,
+    });
 
     // Fetch data
     useEffect(() => {
@@ -53,6 +58,7 @@ function ProductsPage() {
                 <h1>Products Page</h1>
 
                 <SearchBox />
+                <SortBy />
                 <CategoriesList />
 
                 <div className={classes.wrapper}>{content}</div>

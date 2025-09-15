@@ -1,20 +1,24 @@
 import classes from "./CategoriesList.module.css";
 
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../pages/store/store";
-import { fetchAllCategoriesAction } from "../../pages/store/slices/categoriesSlice";
+import { useAppDispatch } from "../../pages/store/store";
+import {
+    fetchAllCategoriesAction,
+    useCategoriesState,
+} from "../../pages/store/slices/categoriesSlice";
 import type { ProductCategory } from "../../utils/http";
-import { toggleCategory } from "../../pages/store/slices/filtersSlice";
+import {
+    toggleCategory,
+    useFiltersState,
+} from "../../pages/store/slices/filtersSlice";
 import { useSearchParams } from "react-router";
 
 function CategoriesList() {
     const [, setSearchParams] = useSearchParams();
 
     const dispatch = useAppDispatch();
-    const { categories } = useAppSelector((state) => state.categoriesState);
-    const { categories: filterCategories } = useAppSelector(
-        (state) => state.filtersState
-    );
+    const { categories } = useCategoriesState();
+    const { categories: filterCategories } = useFiltersState();
 
     // Fetch Categories
     useEffect(() => {

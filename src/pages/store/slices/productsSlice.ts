@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAllProducts, type Product } from "../../../utils/http";
+import { useAppSelector } from "../store";
 
 type InitialState = {
     products: Product[] | null;
@@ -40,5 +41,8 @@ const productsSlice = createSlice({
             });
     },
 });
+
+export const useProductsState = () =>
+    useAppSelector((state) => state.productsState);
 
 export default productsSlice.reducer;
