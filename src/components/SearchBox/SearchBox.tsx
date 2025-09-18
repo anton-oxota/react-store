@@ -25,7 +25,10 @@ function SearchBox() {
         setSearchParams((prevSearchParams) => {
             if (search) {
                 prevSearchParams.set("search", search);
+                return prevSearchParams;
             }
+
+            prevSearchParams.delete("search");
             return prevSearchParams;
         });
     }
@@ -33,7 +36,6 @@ function SearchBox() {
     return (
         <form className={classes.form} onSubmit={handleSearchSubmit}>
             <input
-                defaultValue="Cap"
                 type="text"
                 placeholder="Enter product title..."
                 name="search"

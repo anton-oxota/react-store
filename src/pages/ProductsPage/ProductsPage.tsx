@@ -57,8 +57,11 @@ function ProductsPage() {
             <div className="container">
                 <h1>Products Page</h1>
 
-                <SearchBox />
-                <SortBy />
+                <div className={classes.actionsRow}>
+                    <SearchBox />
+                    <SortBy />
+                </div>
+
                 <CategoriesList />
 
                 <div className={classes.wrapper}>{content}</div>

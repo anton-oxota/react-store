@@ -1,0 +1,25 @@
+.dropdown {
+    width: 200px;
+    list-style: none;
+    position: relative;
+}
+
+.dropdown li {
+    width: 100%;
+    text-align: center;
+    border: 2px solid var(--color-1);
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--white);
+}
+
+.dropdown .optionsList {
+    width: 100%;
+    position: absolute;
+}
+
+.dropdown li:hover,
+.dropdown li.active {
+    background-color: var(--color-1);
+    color: var(--white);
+}

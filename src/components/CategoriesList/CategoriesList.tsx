@@ -30,7 +30,10 @@ function CategoriesList() {
         setSearchParams((prevSearchParams) => {
             if (filterCategories.length) {
                 prevSearchParams.set("categories", filterCategories.join(","));
+                return prevSearchParams;
             }
+
+            prevSearchParams.delete("categories");
             return prevSearchParams;
         });
     }, [filterCategories, setSearchParams]);
