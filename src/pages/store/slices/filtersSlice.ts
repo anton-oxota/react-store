@@ -9,12 +9,14 @@ type InitialState = {
     search: string;
     categories: ProductCategory["name"][];
     sortBy: SortByType;
+    page: number;
 };
 
 const initialState: InitialState = {
     search: getSearchFromUrl(),
     categories: getCategoriesFromUrl(),
     sortBy: "default",
+    page: 1,
 };
 
 const filtersSlice = createSlice({
@@ -38,11 +40,15 @@ const filtersSlice = createSlice({
         setSortBy(state, action: PayloadAction<InitialState["sortBy"]>) {
             state.sortBy = action.payload;
         },
+        setPage(state, action) {
+            state.page = action.payload;
+        },
     },
 });
 
 export const useFiltersState = () =>
     useAppSelector((state) => state.filtersState);
 
-export const { setSearch, toggleCategory, setSortBy } = filtersSlice.actions;
+export const { setSearch, toggleCategory, setSortBy, setPage } =
+    filtersSlice.actions;
 export default filtersSlice.reducer;
