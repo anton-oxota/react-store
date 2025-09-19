@@ -4,24 +4,3 @@
     align-items: flex-end;
     gap: 10px;
 }
-
-.pageButton {
-    min-width: 40px;
-    height: 40px;
-
-    font-size: 16px;
-    padding: 5px;
-    background-color: transparent;
-    border: 2px solid var(--color-1);
-    font-size: 22px;
-}
-
-.pageButton.active {
-    background-color: var(--color-1);
-    color: var(--white);
-}
-
-.pageButton:disabled {
-    border-color: #aaaaaa;
-    color: #aaaaaa;
-}
