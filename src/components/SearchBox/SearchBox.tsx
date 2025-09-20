@@ -25,10 +25,10 @@ function SearchBox() {
         setSearchParams((prevSearchParams) => {
             if (search) {
                 prevSearchParams.set("search", search);
-                return prevSearchParams;
+            } else {
+                prevSearchParams.delete("search");
             }
 
-            prevSearchParams.delete("search");
             return prevSearchParams;
         });
     }
