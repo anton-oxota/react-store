@@ -50,3 +50,13 @@ export function splitArray<T>(array: T[], itemsQuantity: number) {
 
     return newArray;
 }
+
+export function scrollToElement(element: Element) {
+    const top = -element.getBoundingClientRect().y;
+    console.log(top);
+
+    window.scrollTo({
+        top,
+        behavior: "auto",
+    });
+}

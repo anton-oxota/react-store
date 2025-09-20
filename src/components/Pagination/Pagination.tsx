@@ -1,24 +1,20 @@
-import {
-    setPage,
-    useFiltersState,
-} from "../../pages/store/slices/filtersSlice";
-import { useAppDispatch } from "../../pages/store/store";
+import { useFiltersState } from "../../pages/store/slices/filtersSlice";
 import { createButtonsIndexArray } from "../../utils/pagination";
 import PageButton from "./PageButton";
 import classes from "./Pagination.module.css";
 
 type PaginationProps = {
     totalPages: number;
+    onChange?: (page: number) => void;
 };
 
-function Pagination({ totalPages }: PaginationProps) {
+function Pagination({ totalPages, onChange }: PaginationProps) {
     const { page: activePage } = useFiltersState();
-    const dispatch = useAppDispatch();
 
     function handleSetPage(page: number) {
         if (page === 0 || page === totalPages + 1) return;
 
-        dispatch(setPage(page));
+        if (onChange) onChange(page);
     }
 
     return (
